@@ -13,14 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run MCP Server and Trigger Agent
+      - name: Run MCP Server and Trigger Tool
         run: |
-          docker run -i --rm \
+          echo '{"jsonrpc":"2.0","method":"create_workspace","params":{},"id":1}' | docker run -i --rm \
             -e TFE_TOKEN=${{ secrets.TFE_TOKEN }} \
             -e TFE_ADDRESS=https://app.terraform.io \
             -e ENABLE_TF_OPERATIONS=true \
             -v ${{ github.workspace }}:/workspace \
             -w /workspace \
-            hashicorp/terraform-mcp-server:latest \
-            <<< "create_workspace"
-
+            hashicorp/terraform-mcp-server:latest
