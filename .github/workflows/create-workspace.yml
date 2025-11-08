@@ -12,9 +12,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run MCP Server and Trigger Tool
+      - name: Run MCP Server
         run: |
-          echo '{"jsonrpc":"2.0","method":"create_workspace","params":{},"id":1}' | docker run -i --rm \
+          docker run -i --rm \
             -e TFE_TOKEN=${{ secrets.TFE_TOKEN }} \
             -e TFE_ADDRESS=https://app.terraform.io \
             -e ENABLE_TF_OPERATIONS=true \
