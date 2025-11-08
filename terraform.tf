@@ -1,9 +1,9 @@
 terraform {
   cloud {
-    organization = "your-org-name"
+    organization = "terraform-test-org"
 
     workspaces {
-      name = "azure-demo"
+      name = "terraform-test-demo"
     }
   }
 
