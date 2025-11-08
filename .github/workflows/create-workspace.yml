@@ -1,7 +1,9 @@
 name: Create Terraform Workspace
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   create-workspace:
