@@ -1,10 +1,7 @@
-name: Create Terraform Cloud Workspace
+name: Create Terraform Workspace
 
 on:
-  push:
-    branches:
-      - main
-      - my-test-project
+  workflow_dispatch:
 
 jobs:
   create-workspace:
@@ -13,15 +10,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-        
       - name: Run MCP Server and Trigger Tool
-        - name: Run MCP Server
-          run: |
-            docker run -i --rm \
-              -e TFE_TOKEN=${{ secrets.TFE_TOKEN }} \
-              -e TFE_ADDRESS=https://app.terraform.io \
-              -e ENABLE_TF_OPERATIONS=true \
-              -v ${{ github.workspace }}:/workspace \
-              -w /workspace \
-              hashicorp/terraform-mcp-server:latest
-    
+        run: |
+          echo '{"jsonrpc":"2.0","method":"create_workspace","params":{},"id":1}' | docker run -i --rm \
+            -e TFE_TOKEN=${{ secrets.TFE_TOKEN }} \
+            -e TFE_ADDRESS=https://app.terraform.io \
+            -e ENABLE_TF_OPERATIONS=true \
+            -v ${{ github.workspace }}:/workspace \
+            -w /workspace \
+            hashicorp/terraform-mcp-server:latest
