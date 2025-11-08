@@ -1,0 +1,20 @@
+name: Create Terraform Cloud Workspace
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-workspace:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run MCP Server
+        run: |
+          docker run -i --rm \
+            -e TFE_TOKEN=${{ secrets.TFE_TOKEN }} \
+            -e TFE_ADDRESS=https://app.terraform.io \
+            -e ENABLE_TF_OPERATIONS=true \
+            hashicorp/terraform-mcp-server:latest
