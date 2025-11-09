@@ -4,6 +4,6 @@ resource "azurerm_resource_group" "example" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "terraform-resources-1"
+  name     = "terraform-resources-2"
   location = "Central India"
 }
