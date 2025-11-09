@@ -1,10 +1,8 @@
-# terraform {
-#   cloud {
-#     organization = "terraform-test-org"
-
-#     workspaces {
-#       name = "terraform-test-demo"
-#     }
-#   }
-
-# }
+terraform {
+  backend "remote" {
+    organization = "Peterps_Personal"
+    workspaces {
+      name = "terraform-workspace"
+    }
+  }
+}

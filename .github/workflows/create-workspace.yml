@@ -1,23 +1,27 @@
-# name: Create Terraform Workspace
+name: Azure Deployment Pipeline
 
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
 
-# jobs:
-#   create_workspace:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v3
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-#       - name: Run MCP Server
-#         run: |
-#           docker run -i --rm \
-#             -e TFE_TOKEN=${{ secrets.TFE_TOKEN }} \
-#             -e TFE_ADDRESS=https://app.terraform.io \
-#             -e ENABLE_TF_OPERATIONS=true \
-#             -v ${{ github.workspace }}:/workspace \
-#             -w /workspace \
-#             hashicorp/terraform-mcp-server:latest
+      - name: Terraform Cloud Trigger (optional)
+        run: echo "Terraform Cloud already triggered via webhook"
+
+      - name: Azure CLI Setup
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Post-deployment tasks
+        run: |
+          az group list
+          echo "Run custom Azure scripts here"
+
